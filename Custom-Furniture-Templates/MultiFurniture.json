@@ -1,0 +1,38 @@
+/*USAGE DIRECTIONS
+
+This is the template for furniture items that appear multiple times in furniture catalogue.
+I use this mainly to load the same items that have different colors (mostly for wood furniture variants).
+Included features are sample code block for the CMCT auto-matching overlay.
+
+Copy and paste this into a .json file for use.
+*/
+
+{
+    "Changes": [
+      // LOAD TEXTURE ASSET - From your furniture spritesheet
+      {
+        "Action": "Load",
+        "Target": "Mods/{{ModId}}/{{ModId}}_MultiFurniture_{{BASECOLOR}}",
+        "FromFile": "assets/{{ModId}}_MultiFurniture_{{BASECOLOR}}.png"
+      },
+  
+      // ADD FURNITURE DATA - Replace as needed
+      {
+        "Action": "EditData",
+        "Target": "Data/Furniture",
+        "Entries": {
+        "{{ModId}}_Item_{{BASECOLOR}}": "{{ModId}}_Item_{{BASECOLOR}}/{{category}}/{{item size}}/{{bounding box size}}/{{rotations}}/{{price}}/{{placement restriction}}/{{i18n:ModId_Item_{{BASECOLOR}}}}/{{index}}/Mods\\{{ModId}}\\{{ModId}}_MultiFurniture_{{BASECOLOR}}/{{RandomSale}}/collections_yourcontexttags"
+        }
+      },
+  
+      // OVERLAYS - For sample overlay code
+      // This relies on dynamic tokens because of the CMCT auto-matching feature.
+
+      {
+        "Action": "EditImage",
+        "Target": "Mods/{{ModId}}/{{ModId}}_MultiFurniture_{{BASECOLOR}}",
+        "FromFile": "assets/Overlays/{{ModId}}_MultiFurniture_{{BASECOLOR}}_{{Overlay}}",
+        "PatchMode": "Overlay"
+      }
+    ]
+  }
