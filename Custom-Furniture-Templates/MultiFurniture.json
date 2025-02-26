@@ -11,6 +11,7 @@ Copy and paste this into a .json file for use.
     "Changes": [
       // LOAD TEXTURE ASSET - From your furniture spritesheet
       {
+        "LogName": "Load Multi Furniture Texture",
         "Action": "Load",
         "Target": "Mods/{{ModId}}/{{ModId}}_MultiFurniture_{{BASECOLOR}}",
         "FromFile": "assets/{{ModId}}_MultiFurniture_{{BASECOLOR}}.png"
@@ -18,6 +19,7 @@ Copy and paste this into a .json file for use.
   
       // ADD FURNITURE DATA - Replace as needed
       {
+        "LogName": "Add Multi Furniture Data",
         "Action": "EditData",
         "Target": "Data/Furniture",
         "Entries": {
@@ -29,6 +31,7 @@ Copy and paste this into a .json file for use.
       // This relies on dynamic tokens because of the CMCT auto-matching feature.
 
       {
+        "LogName": "Sample Texture Overlay",
         "Action": "EditImage",
         "Target": "Mods/{{ModId}}/{{ModId}}_MultiFurniture_{{BASECOLOR}}",
         "FromFile": "assets/Overlays/{{ModId}}_MultiFurniture_{{BASECOLOR}}_{{Overlay}}",
