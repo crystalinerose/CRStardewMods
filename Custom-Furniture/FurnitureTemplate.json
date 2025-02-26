@@ -1,0 +1,80 @@
+/*USAGE DIRECTIONS
+
+This is the content.json for your furniture mod.
+Included features are local tokens to load items based on color variant and Cross-Mod Compatibility Tokens for auto-matching overlays. 
+
+All provided tokens (config, dynamic, local) are written for templating purposes and SHOULD BE REPLACED WITH YOUR OWN.
+
+// TOKEN GUIDE
+MATCHEDModID = The ModId of whichever mod you want your auto-matching system to match.
+MATCHEDModConfigSettings = The config token of whichever mod you want your auto-matching system to match.
+
+*/
+{
+  "$schema": "https://smapi.io/schemas/content-patcher.json",
+  "Format": "2.5.0",
+  "ConfigSchema": {
+
+    // CATALOGUE PRICE - For easier catalogue price modification
+    "Catalogue Price": {
+      "Default": "30000",
+      "Section": "Tweaks"
+    },
+
+    // FURNITURE LOADING - if config token value is false, furniture won't load into catalogue (use with When conditions)
+    "Oak Items": {
+      "AllowValues": "true, false",
+      "Default": "true",
+      "Section": "Available Furniture Colors"
+
+    // FURNITURE MODIFICATION - any modifications to your furniture item
+    // Auto option included for CMCT auto-matching
+    },
+    "Overlay Colors": {
+      "AllowValues": "Auto, Oak, Walnut, Birch, Mahogany",
+      "Default": "Auto",
+      "Section": "Item Customization"
+    }
+  },
+
+  // DYNAMIC TOKENS FOR CMCT AUTO-MATCHING - DELETE IF NOT USING THIS FEATURE!
+  "DynamicTokens": [
+    {
+      "Name": "Overlay",
+      "Value": "{{Spiderbuttons.CMCT/Config: {{MATCHEDModId}}, {{MATCHEDModConfigSettings}}",
+      "When": {
+        "HasMod": "{{MATCHEDModId}}, Spiderbuttons.CMCT",
+        "Overlay Colors": "Auto"
+      }
+    },
+    {
+      "Name": "Overlay",
+      "Value": "{{Buildable Kitchen Countertop Material}}",
+      "When": {
+        "Overlay Colors |contains=Auto": "false"
+      }
+    }
+  ],
+
+  "Changes": [
+
+    // LOAD SINGLE ITEMS - Items loaded in this action will only appear ONCE in furniture catalogue
+    {
+      "Action": "Include",
+      "FromFile": "data/Catalogue.json, data/SingleFurniture.json"
+    },
+  
+    // LOAD VARIANT ITEMS - With local tokens, items loaded in this action will appear n times in furniture catalogue (n = amount of local tokens).
+    // Useful for loading 4 vanilla wood swatch items without coding all of them individually. Copy-paste the following Include action n times.
+    {
+      "Action": "Include",
+      "FromFile": "data/MultiFurniture.json",
+      "LocalTokens": {
+        "BASECOLOR": "Oak"
+      },
+      "When": {
+        "Oak Items": "true"
+      }
+    }
+  ]
+}
