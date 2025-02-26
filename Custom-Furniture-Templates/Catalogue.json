@@ -1,0 +1,108 @@
+/*USAGE DIRECTIONS
+
+This is the template for loading your custom catalogue with Calcifer + Happy Home Designer support.
+The catalogue loading process also includes a sample code block for changing the appearance of your catalogue based on other settings.
+
+Copy and paste this into a .json file for use.
+*/
+{
+    "Changes": [
+      // LOAD CATALOGUE FURNITURE - All actions required to put your catalogue item in-game
+      {
+        "LogName": "Load Catalogue Texture",
+        "Action": "Load",
+        "Target": "Mods/{{ModId}}/{{ModId}}_Catalogue",
+        "FromFile": "assets/{{ModId}}_Catalogue.png"
+      },
+      {
+        "LogName": "Add Catalogue Furniture Item",
+        "Action": "EditData",
+        "Target": "Data/Furniture",
+        "Entries": {
+            "{{ModId}}_Catalogue": "{{ModId}}_Catalogue/other/{{item size}}/{{bounding box size}}/1/{{CataloguePrice}}/2/{{i18n:ModId_Catalogue}}/{{index}}/Mods\\{{ModId}}\\{{ModId}}_Catalogue/true"
+        }
+      },
+
+      /* OPTIONAL - If you want your catalogue to have changing overlays that match your other item settings */
+      {
+        "LogName": "Catalogue Appearance Edits",
+        "Action": "EditImage",
+        "Target": "Mods/{{ModId}}/{{ModId}}_Catalogue",
+        "FromFile": "assets/Overlays/{{ModId}}_Catalogue_{{Overlay}}",
+        "PatchMode": "Overlay"
+      },
+
+      /* If your catalogue's appearance changes drastically (i.e. not just a color overlay), you can replace the Load catalogue texture action above with the following
+      {
+        "LogName": "Load Catalogue Texture - Appearance-Based",
+        "Action": "Load",
+        "Target": "Mods/{{ModId}}/{{ModId}}_Catalogue",
+        "FromFile": "assets/{{ModId}}_Catalogue_{{Overlay}}.png"
+      },
+      */
+  
+      // CATALOGUE DATA - All actions required to make your custom catalogue FUNCTIONAL
+      {
+        "LogName": "Add Custom Furniture Shop Data",
+        "Action": "EditData",
+        "Target": "Data/Shops",
+        "Entries": {
+          "{{YourModId}}_CustomFurnitureShop": {
+            "PriceModifiers": null,
+            "PriceModifierMode": "Stack",
+            "Items": [
+              {
+                "Price": 0,
+                "AvailableStockLimit": "Global",
+                "AvoidRepeat": false,
+                "UseObjectDataPrice": false,
+                "IgnoreShopPriceModifiers": false,
+                "PriceModifiers": null,
+                "PriceModifierMode": "Stack",
+                "AvailableStockModifiers": null,
+                "AvailableStockModifierMode": "Stack",
+                "Condition": null,
+                "Id": "Default",
+                "ItemId": "ALL_ITEMS (F)",
+                "MinStack": -1,
+                "MaxStack": -1,
+                "Quality": -1,
+                "PerItemCondition": "ITEM_CONTEXT_TAG Target collections_yourcontexttags"
+              }
+            ],
+            "CustomFields": {
+              "HappyHomeDesigner/Catalogue": true
+            }
+          }
+        }
+      },
+      // Replace instances of {{ModId}} in the following Action with your full unique ID
+      {
+        "LogName": "Make Functional Catalogue Furniture with Calcifer",
+        "Action": "EditData",
+        "Target": "sophie.Calcifer/FurnitureActions",
+        "Entries": {
+          "(F){{ModId}}_Catalogue": {
+            "TileAcions": [
+              {
+                "TileAction": "OpenShop {{ModId}}_CustomFurnitureShop"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "LogName": "Add Catalogue Furniture to Robin's Shop",
+        "Action": "EditData",
+        "Target": "Data/Shops",
+        "TargetField": [ "Carpenter", "Items" ],
+        "Entries": {
+          "{{ModId}}_Catalogue": {
+            "Id": "{{ModId}}_Catalogue",
+            "ItemId": "(F){{ModId}}_Catalogue", //qualified item ID of your catalogue furniture item
+            "Price": "{{CataloguePrice}}"
+          }
+        }
+      }
+    ]
+  }
