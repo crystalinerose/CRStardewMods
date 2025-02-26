@@ -1,0 +1,38 @@
+/*USAGE DIRECTIONS
+
+This is the template for furniture items that only appear once in furniture catalogue.
+Included features are sample code block for the CMCT auto-matching overlay.
+
+Copy and paste this into a .json file for use.
+*/
+
+{
+    "Changes": [
+      // LOAD TEXTURE ASSET - From your furniture spritesheet
+      {
+        "Action": "Load",
+        "Target": "Mods/{{ModId}}/{{ModId}}_SingleFurniture",
+        "FromFile": "assets/{{ModId}}_SingleFurniture.png"
+      },
+  
+      // ADD FURNITURE DATA - Replace as needed
+      {
+        "Action": "EditData",
+        "Target": "Data/Furniture",
+        "Entries": {
+            // Basic Furniture Template
+            "{{ModId}}_Item": "{{ModId}}_Item/{{category}}/{{item size}}/{{bounding box size}}/{{rotations}}/{{price}}/{{placement restriction}}/{{i18n:ModId_Item}}/{{index}}/Mods\\{{ModId}}\\{{ModId}}_SingleFurniture/{{RandomSale}}/collections_yourcontexttags"
+        }
+      },
+  
+      // OVERLAYS - For sample overlay code
+      // This relies on dynamic tokens because of the CMCT auto-matching feature.
+
+      {
+        "Action": "EditImage",
+        "Target": "Mods/{{ModId}}/{{ModId}}_SingleFurniture",
+        "FromFile": "assets/Overlays/{{ModId}}_SingleFurniture_{{Overlay}}",
+        "PatchMode": "Overlay"
+      }
+    ]
+  }
