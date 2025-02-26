@@ -15,9 +15,16 @@ MATCHEDModConfigSettings = The config token of whichever mod you want your auto-
   "Format": "2.5.0",
   "ConfigSchema": {
 
-    // CATALOGUE PRICE - For easier catalogue price modification
-    "Catalogue Price": {
+    // CATALOGUE TWEAKS
+    /* Token for setting catalogue price, for catalogue furniture data */
+    "CataloguePrice": {
       "Default": "30000",
+      "Section": "Tweaks"
+    },
+    /* Toggle items appearing in shop stocks and vanilla Furniture Catalogue */
+    "RandomSale": {
+      "AllowValues": "true, false",
+      "Default": "true",
       "Section": "Tweaks"
     },
 
@@ -49,7 +56,7 @@ MATCHEDModConfigSettings = The config token of whichever mod you want your auto-
     },
     {
       "Name": "Overlay",
-      "Value": "{{Buildable Kitchen Countertop Material}}",
+      "Value": "{{Overlay Colors}}",
       "When": {
         "Overlay Colors |contains=Auto": "false"
       }
@@ -58,8 +65,9 @@ MATCHEDModConfigSettings = The config token of whichever mod you want your auto-
 
   "Changes": [
 
-    // LOAD SINGLE ITEMS - Items loaded in this action will only appear ONCE in furniture catalogue
+    // LOAD CATALOGUE AND SINGLE ITEMS - Non-catalogue items loaded in this action will only appear ONCE in furniture catalogue
     {
+      "LogName": "Load Catalogue and Single Items",
       "Action": "Include",
       "FromFile": "data/Catalogue.json, data/SingleFurniture.json"
     },
@@ -67,6 +75,7 @@ MATCHEDModConfigSettings = The config token of whichever mod you want your auto-
     // LOAD VARIANT ITEMS - With local tokens, items loaded in this action will appear n times in furniture catalogue (n = amount of local tokens).
     // Useful for loading 4 vanilla wood swatch items without coding all of them individually. Copy-paste the following Include action n times.
     {
+      "LogName": "Load Variant Items",
       "Action": "Include",
       "FromFile": "data/MultiFurniture.json",
       "LocalTokens": {
